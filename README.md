@@ -1,6 +1,6 @@
 # `ia-stream`
 
-![npm](https://img.shields.io/npm/v/ia-stream.svg?style=for-the-badge)
+[![npm](https://img.shields.io/npm/v/ia-stream.svg?style=for-the-badge)](https://www.npmjs.com/package/ia-stream)
 ![NPM](https://img.shields.io/npm/l/ia-stream.svg?style=for-the-badge)
 
 Streams in Node.js don't have the ability to seek; and you can only read the data in them once. This is majorly inconvient for operations like random access to a file.
