@@ -1,10 +1,12 @@
 {
   "name": "ia-stream",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Better streams for Node.js.",
   "scripts": {
     "test": "mocha",
-    "build": "tsc"
+    "build": "tsc",
+    "build:doc": "docts",
+    "prepublish": "npm run build && npm run build:doc"
   },
   "repository": {
     "type": "git",

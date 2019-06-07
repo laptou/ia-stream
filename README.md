@@ -138,6 +138,5 @@ or fail.</em>
 > > **.isOpen** <sup><code>boolean</code></sup>  
 > > &emsp;<em>`true` if this stream is currently open.</em>  
 
----
 
 © 2019 Ibiyemi Abiodun (laptou) \<ibiyemi.a.abiodun@gmail.com\>
