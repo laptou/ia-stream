@@ -1,5 +1,8 @@
 # `ia-stream`
 
+![npm](https://img.shields.io/npm/v/ia-stream.svg?style=for-the-badge)
+![NPM](https://img.shields.io/npm/l/ia-stream.svg?style=for-the-badge)
+
 Streams in Node.js don't have the ability to seek; and you can only read the data in them once. This is majorly inconvient for operations like random access to a file.
 
 The obvious solution is to just use `fs` methods directly, but this isn't ideal either — what if you need an abstraction where the data behind the stream can come from a place other than a file?

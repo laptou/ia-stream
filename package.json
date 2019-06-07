@@ -6,7 +6,7 @@
     "test": "mocha",
     "build": "tsc",
     "build:doc": "docts",
-    "prepublish": "npm run build && npm run build:doc"
+    "prepare": "npm run build && npm run build:doc"
   },
   "repository": {
     "type": "git",
