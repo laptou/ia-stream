@@ -146,13 +146,9 @@ export class FileStream extends StreamBase
         return buf;
     }
 
-    public async readFrom(position: number, length: number, exact?: boolean): Promise<Buffer>
-    {
-        if (!await this.seek(position))
-            throw new Error(`Could not seek to position ${position}.`);
-
-        return this.read(length, exact);
-    }
+    // a single pread() syscall is faster than lseek() + read(), however we are keeping track of
+    // the position in our class and not in the file descriptor anyway, so we aren't using lseek()
+    // therefore overriding readFrom() and writeAt() is not necessary
 
     public async write(data: Buffer): Promise<number>
     {
@@ -189,29 +185,7 @@ export class FileStream extends StreamBase
             await this._file.close();
             this._file = null;
         }
-    }
 
-    public async substream(): Promise<Stream>;
-    public async substream(from: number, to: number): Promise<Stream>;
-    public async substream(from?: number, to?: number): Promise<Stream>
-    {
-        if (!this.isOpen)
-            throw new Error("This stream is not open.");
-
-        const opts: FileStreamOptions = {
-            flags: "r",
-            substream: true,
-            range: this._range
-        };
-
-        if (typeof from === "number" && typeof to === "number")
-        {
-            opts.range = [this._range[0] + from, this._range[0] + to!];
-
-            if (opts.range[1] > this._range[1])
-                throw new RangeError(`The range [${from}, ${to}] does not fit within this stream.`);
-        }
-
-        return new FileStream(this._file!, opts);
+        super.close();
     }
 }

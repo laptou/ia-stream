@@ -107,14 +107,6 @@ export class MemoryStream extends StreamBase
         return slice;
     }
 
-    public async readFrom(position: number, length: number, exact?: boolean): Promise<Buffer>
-    {
-        if (!await this.seek(position))
-            throw new Error(`Could not seek to position ${position}.`);
-
-        return this.read(length, exact);
-    }
-
     public async write(data: Buffer): Promise<number>
     {
         if (!this.isOpen)
@@ -155,22 +147,6 @@ export class MemoryStream extends StreamBase
     {
         this._buffer = null;
         this._isOpen = false;
-    }
-
-    public async substream(): Promise<Stream>;
-    public async substream(from: number, to: number): Promise<Stream>;
-    public async substream(from?: number, to?: number): Promise<Stream>
-    {
-        if (!this.isOpen)
-            throw new Error("This stream is not open.");
-
-        let buf = this._buffer as Buffer;
-
-        if (typeof from === "number")
-        {
-            buf = buf.slice(from, to);
-        }
-
-        return new MemoryStream({ data: buf, readonly: true });
+        super.close();
     }
 }

@@ -7,6 +7,11 @@ export class NodeStream extends StreamBase
     private _position: number = 0;
     private _isOpen: boolean = true;
 
+    public get innerStream() 
+    {
+        return this._nodeStream;
+    }
+
     public get position(): number
     {
         return this._position;
@@ -57,24 +62,40 @@ export class NodeStream extends StreamBase
             throw new Error("This stream cannot be read from.");
 
         const readable = this._nodeStream as nodeStreams.Readable;
-        return readable.read(length);
+        const buf = readable.read(length) as Buffer;
+        this._position += buf.byteLength;
+        return buf;
     }
-    public readFrom(position: number, length: number, exact?: boolean | undefined): Promise<Buffer>
+
+    public async write(data: Buffer): Promise<number>
     {
-        throw new Error("Method not implemented.");
+        if (!this.isOpen)
+            throw new Error("This stream is not open.");
+        if (!this.canWrite)
+            throw new Error("This stream cannot be written to.");
+
+        const writable = this._nodeStream as nodeStreams.Writable;
+        await new Promise((resolve, reject) =>
+            writable.write(data, (err) => err ? reject(err) : resolve()));
+
+        return data.byteLength;
     }
-    public write(data: Buffer): Promise<number>
+
+    public async resize(length: number): Promise<boolean>
     {
-        throw new Error("Method not implemented.");
+        return false;
     }
-    public resize(length: number): Promise<boolean>
+
+    public async close(): Promise<void>
     {
-        throw new Error("Method not implemented.");
+        if (this._nodeStream instanceof nodeStreams.Writable)
+            this._nodeStream.end();
+        else
+            this._nodeStream.destroy();
+
+        super.close();
     }
-    public close(): Promise<void>
-    {
-        throw new Error("Method not implemented.");
-    }
+
     public substream(): Promise<Stream>
     {
         throw new Error("Method not implemented.");
