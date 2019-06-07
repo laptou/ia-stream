@@ -1,3 +1,7 @@
+/**
+ * @module file
+ */
+
 import { promises as fs, PathLike, constants } from "fs";
 import * as nodeStreams from "stream";
 import { Stream, StreamBase } from "./stream";
