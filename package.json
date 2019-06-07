@@ -1,0 +1,25 @@
+{
+  "name": "ia-stream",
+  "version": "0.1.0",
+  "description": "Better streams for Node.js.",
+  "scripts": {
+    "test": "mocha",
+    "prepack": "tsc"
+  },
+  "repository": "github:laptou/ia-stream",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "laptou",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "~12",
+    "@types/ramda": "^0.26.9",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "ts-node": "^8.2.0",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
+  }
+}
