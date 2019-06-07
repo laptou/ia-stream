@@ -6,7 +6,10 @@
     "test": "mocha",
     "build": "tsc"
   },
-  "repository": "github:laptou/ia-stream",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laptou/ia-stream.git"
+  },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "author": "laptou",
