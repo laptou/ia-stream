@@ -164,7 +164,7 @@ export abstract class StreamBase
                         {
                             this.push(data);
 
-                            if (self.position === self.length)
+                            if (self.position >= self.length)
                                 this.push(null);
                         },
                         err => this.emit("error", err));
